@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Configuration status="WARN">
+	<Appenders>
+		<!-- console Appender-->
+		<Console name="ConsoleAppender" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n" />
+		</Console>
+
+		<!-- File Appender-->
+		<File name="FileAppender" fileName="logs/automation.log" append="true">
+			<PatternLayout
+				pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n" />
+		</File>
+	</Appenders>
+	<Loggers>
+
+		<!-- Your Framework Logs -->
+		<Logger name="tests"
+			level="info"
+			additivity="false">
+
+			<AppenderRef ref="ConsoleAppender" />
+			<AppenderRef ref="FileAppender" />
+
+		</Logger>
+
+		<Logger name="pages"
+			level="info"
+			additivity="false">
+
+			<AppenderRef ref="ConsoleAppender" />
+			<AppenderRef ref="FileAppender" />
+
+		</Logger>
+
+		<Logger name="base"
+			level="info"
+			additivity="false">
+
+			<AppenderRef ref="ConsoleAppender" />
+			<AppenderRef ref="FileAppender" />
+
+		</Logger>
+
+		<Logger name="listeners"
+			level="info"
+			additivity="false">
+
+			<AppenderRef ref="ConsoleAppender" />
+			<AppenderRef ref="FileAppender" />
+
+		</Logger>
+
+		<!-- Disable unnecessary logs -->
+		<Logger name="org.testng"
+			level="error" />
+
+		<Logger name="org.openqa.selenium"
+			level="error" />
+
+		<Root level="error">
+
+			<AppenderRef ref="ConsoleAppender" />
+			<AppenderRef ref="FileAppender" />
+
+		</Root>
+
+	</Loggers>
+</Configuration>

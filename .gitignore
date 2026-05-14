@@ -1,0 +1,8 @@
+/target/
+/test-output/
+/reports/
+/screenshots/
+/logs/
+*.class
+*.jar
+*.log
