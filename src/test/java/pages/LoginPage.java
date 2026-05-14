@@ -12,10 +12,11 @@ import org.openqa.selenium.support.PageFactory;
 
 import base.BaseTest;
 import utilities.WaitUtility;
+//import utilities.DriverFactory;
 
 
 public class LoginPage {
-    WebDriver driver;
+    //WebDriver driver;
     WaitUtility waitUtility;       
 	Logger logger = LogManager.getLogger(LoginPage.class);
   
@@ -31,19 +32,19 @@ public class LoginPage {
 
 	
     public LoginPage(WebDriver driver) {
-        this.driver = driver; 
         PageFactory.initElements(driver, this);
         waitUtility = new WaitUtility(driver);
    }
 	 
 
-    public void login(String user, String pass) {
+    public void login(String user, String pass){
 	    	waitUtility.waitForVisibility(username);
 	        username.sendKeys(user);
             logger.info("Entered Username");
 	        password.sendKeys(pass);
-	        
+	        logger.info("Entered Password");
 	        Login.click();
+	        logger.info("Clicked Login Button");
 	}
     
 

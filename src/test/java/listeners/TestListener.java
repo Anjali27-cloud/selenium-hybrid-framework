@@ -14,15 +14,14 @@ import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 
-import base.BaseTest;
-import pages.LoginPage;
 import utilities.ScreenshotUtility;
+import utilities.DriverFactory;
 import utilities.ExtentManager;
 
 public class TestListener implements ITestListener {
-
+	
+	ThreadLocal<ExtentTest> eTest = new ThreadLocal<>();
 	ExtentReports extent = ExtentManager.getReport();
-	ExtentTest eTest;
 	Logger logger = LogManager.getLogger(TestListener.class);
 
 	@Override
@@ -45,34 +44,32 @@ public class TestListener implements ITestListener {
 	public void onTestStart(ITestResult result) {
 		String testName = result.getMethod().getMethodName() + "-" +result.getParameters()[0];
         System.out.println("testName is :" +testName);
-		eTest = extent.createTest(testName);
+		ExtentTest test = extent.createTest(testName);
+		eTest.set(test);
 	}
 
 	@Override
 	public void onTestSuccess(ITestResult result) {
-		eTest.log(Status.PASS, "Test Passed");
-		// System.out.println("Test Passed :" + result.getName());
-
+		
+		eTest.get().log(Status.PASS, "Test Passed");
+		eTest.get().pass("Test passed sucessfully");
 	}
 
 	@Override
 	public void onTestFailure(ITestResult result) {
 
-		eTest.fail(result.getThrowable());
-		// System.out.println("Test Failed :" +result.getName());
-		Object currentClass = result.getInstance(); // Get current class object
-		BaseTest baseTest = (BaseTest) currentClass; // cast the object to base test
-		WebDriver driver = baseTest.driver; // Get the driver from base test
+        WebDriver driver = DriverFactory.getDriver();
+        String screenshotPath = ScreenshotUtility.captureScreenshot(driver, result.getName());
+        eTest.get().fail(result.getThrowable());
 
-		String screenshotPath = ScreenshotUtility.captureScreenshot(driver, result.getName());
-
-		eTest.fail(MediaEntityBuilder.createScreenCaptureFromPath(new File(screenshotPath).toURI().toString()).build());
+		eTest.get().fail(MediaEntityBuilder.createScreenCaptureFromPath(new File(screenshotPath).toURI().toString()).build());
 		
-		eTest.log(Status.FAIL, "Test Failed");
+		eTest.get().log(Status.FAIL, "Test Failed");
 	}
 
 	@Override
 	public void onTestSkipped(ITestResult result) {
 		System.out.println("Test Skipped :" + result.getName());
+		eTest.get().skip("Test Skipped");
 	}
 }

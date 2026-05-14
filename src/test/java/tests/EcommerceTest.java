@@ -13,6 +13,7 @@ import pages.LoginPage;
 import utilities.ConfigReader;
 import utilities.ScreenshotUtility;
 import utilities.TestData;
+//import utils.DriverFactory;
 import listeners.TestListener;
 
 
@@ -32,7 +33,7 @@ public class EcommerceTest extends BaseTest {
 
 		String expectedUrl = "https://www.saucedemo.com/inventory.html";
 
-		String actualUrl = driver.getCurrentUrl();
+		String actualUrl = getDriver().getCurrentUrl();
 
 		logger.info("Current url is :" + actualUrl);
 		
@@ -54,13 +55,15 @@ public class EcommerceTest extends BaseTest {
 		
 		logger.info("Assertion passed");
 		
+		System.out.println("Thread ID:" +Thread.currentThread().getId());
+		
 	}
 
 	public void login(String username, String password) {
 
-		System.out.println("Driver in test = " + driver);
+		System.out.println("Driver in test = " + getDriver());
 
-		LoginPage loginPage = new LoginPage(driver);
+		LoginPage loginPage = new LoginPage(getDriver());
 		
 		//ConfigReader config = new ConfigReader();
 

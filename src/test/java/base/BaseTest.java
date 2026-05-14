@@ -16,8 +16,6 @@ import utilities.ConfigReader;
 import utilities.DriverFactory;
 
 public class BaseTest {
-
-	public WebDriver driver;
 	Logger logger = LogManager.getLogger(BaseTest.class);
 	ConfigReader config = new ConfigReader();
 
@@ -26,8 +24,8 @@ public class BaseTest {
 	public void setup() {
 		logger.info("SETUP IS RUNNING");
 		try {
-		driver = DriverFactory.initDriver();
-		driver.get(config.getURL());
+		DriverFactory.initDriver();
+		DriverFactory.getDriver().get(config.getURL());
 		logger.info("Browser launched");
 		} catch(Exception e) {
 			logger.error("Exception occurred", e);
@@ -38,14 +36,20 @@ public class BaseTest {
 	public void teardown() {
 		// System.out.println("Inside teardown");
 
-		System.out.println("Teardown Driver = " + driver);
+		System.out.println("Teardown Driver = " + DriverFactory.getDriver());
 
-		if (driver != null) {
+		if (DriverFactory.getDriver() != null) {
 
-			driver.quit();
+			DriverFactory.getDriver().quit();
 		}
 		
 		logger.info("Test Execution Completed Successfully");
 
 	}
+	
+	// Common driver getter
+    public WebDriver getDriver() {
+
+        return DriverFactory.getDriver();
+    }
 }

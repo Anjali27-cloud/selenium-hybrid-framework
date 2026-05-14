@@ -13,7 +13,6 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 
 import pages.LoginPage;
-
 public class ScreenshotUtility {
 	
 	static Logger logger = LogManager.getLogger(ScreenshotUtility.class);
@@ -21,7 +20,7 @@ public class ScreenshotUtility {
 
 	public static String captureScreenshot(WebDriver driver, String testName) {
 
-		TakesScreenshot ts = (TakesScreenshot) driver;
+		TakesScreenshot ts = (TakesScreenshot) DriverFactory.getDriver();
 
 		File source = ts.getScreenshotAs(OutputType.FILE);
 

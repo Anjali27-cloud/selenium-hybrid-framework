@@ -10,16 +10,17 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class WaitUtility {
 
-	private WebDriver driver;
+	//private WebDriver driver;
 	WebDriverWait wait;
 
 	public WaitUtility(WebDriver driver) {
 	    //System.out.println("Driver received in WaitUtility = " + driver);
 
-		this.driver = driver;
+		//this.driver = driver;
 		wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		System.out.println("Wait initialized is : " + wait);
 	}
+
 
 	public void waitForVisibility(WebElement element) {
 
