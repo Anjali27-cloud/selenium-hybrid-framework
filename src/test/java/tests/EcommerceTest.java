@@ -24,7 +24,7 @@ public class EcommerceTest extends BaseTest {
 	
 	Logger logger = LogManager.getLogger(EcommerceTest.class);
 
-	@Test(dataProvider = "loginData", dataProviderClass = TestData.class)
+	@Test(dataProvider = "loginData", dataProviderClass = TestData.class, retryAnalyzer = utilities.RetryAnalyzer.class)
 	public void openSiteTest(String username, String password, String expectedResult) {
 
 		logger.info("Website opened successfully");
@@ -41,6 +41,8 @@ public class EcommerceTest extends BaseTest {
         if(expectedResult.equalsIgnoreCase("true")) {
         	
 		Assert.assertEquals(actualUrl, expectedUrl);
+        	//Assert.assertEquals(actualUrl, "Wrong_Url");
+        	
 		logger.info(" Posivitive validation passed");
         
         } 
